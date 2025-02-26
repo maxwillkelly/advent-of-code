@@ -24,21 +24,22 @@ fn main() {
         return report;
     });
 
-    let is_report_safe_array = reports.map(|report| {
+    let number_of_safe_reports = reports.fold(0, |accumulator, report| {
         let all_levels_increasing = are_all_levels_increasing(&report);
         let all_levels_decreasing = are_all_levels_decreasing(&report);
-        let levels_differ_by_one_to_three = do_reports_differ_by_one_to_three(&report);
 
-        if (all_levels_increasing || all_levels_decreasing) && levels_differ_by_one_to_three {
-            return true;
+        if !(all_levels_increasing || all_levels_decreasing) {
+            return accumulator;
         }
 
-        return false;
-    });
+        let levels_differ_by_one_to_three = do_reports_differ_by_one_to_three(&report);
 
-    let number_of_safe_reports = is_report_safe_array
-        .filter(|is_report_safe| *is_report_safe)
-        .count();
+        if levels_differ_by_one_to_three {
+            return accumulator + 1;
+        }
+
+        return accumulator;
+    });
 
     // Output: 314
     println!("Number of safe reports: {}", number_of_safe_reports);
