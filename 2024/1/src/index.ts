@@ -1,4 +1,4 @@
-// Advent of Code: 2024, Day 1, Part 1
+// Advent of Code: 2024, Day 1
 // Problem: https://adventofcode.com/2024/day/1
 // Solution:
 //   Part 1: Read the input file, split the lines into two lists, sort the lists,
