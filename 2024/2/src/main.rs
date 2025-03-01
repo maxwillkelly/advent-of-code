@@ -5,7 +5,8 @@
 //          into an array of integers. For each array of integers, check if the levels are increasing or
 //          decreasing. If they are, check if the levels differ by one to three. If both conditions are
 //          met, then the report is safe. Count the number of safe reports.
-//   Part 2:
+//   Part 2: For each report, remove one level at a time and check if the report is safe. If it is, then
+//          count that as part of the number of safe reports with the problem dampner.
 
 use std::fs;
 
@@ -24,7 +25,7 @@ fn main() {
         return report;
     });
 
-    let number_of_safe_reports = reports.fold(0, |accumulator, report| {
+    let number_of_safe_reports = reports.clone().fold(0, |accumulator, report| {
         let all_levels_increasing = are_all_levels_increasing(&report);
         let all_levels_decreasing = are_all_levels_decreasing(&report);
 
@@ -41,8 +42,36 @@ fn main() {
         return accumulator;
     });
 
+    let number_of_safe_reports_with_problem_dampner =
+        reports.clone().fold(0, |accumulator, report| {
+            for (index, _level) in report.clone().into_iter().enumerate() {
+                let mut report_without_level = report.clone();
+                report_without_level.remove(index);
+
+                let all_levels_increasing = are_all_levels_increasing(&report_without_level);
+                let all_levels_decreasing = are_all_levels_decreasing(&report_without_level);
+
+                if !(all_levels_increasing || all_levels_decreasing) {
+                    continue;
+                }
+
+                let levels_differ_by_one_to_three =
+                    do_reports_differ_by_one_to_three(&report_without_level);
+
+                if levels_differ_by_one_to_three {
+                    return accumulator + 1;
+                }
+            }
+
+            return accumulator;
+        });
+
     // Output: 314
     println!("Number of safe reports: {}", number_of_safe_reports);
+    println!(
+        "Number of safe reports with problem dampner: {}",
+        number_of_safe_reports_with_problem_dampner
+    );
 }
 
 fn are_all_levels_increasing(report: &Vec<i32>) -> bool {
