@@ -22,7 +22,7 @@ fn main() {
             .iter()
             .map(|part| part.parse::<i32>().unwrap())
             .collect::<Vec<i32>>();
-        return report;
+        report
     });
 
     let number_of_safe_reports = reports.clone().fold(0, |accumulator, report| {
@@ -39,7 +39,7 @@ fn main() {
             return accumulator + 1;
         }
 
-        return accumulator;
+        accumulator
     });
 
     let number_of_safe_reports_with_problem_dampner =
@@ -63,7 +63,7 @@ fn main() {
                 }
             }
 
-            return accumulator;
+            accumulator
         });
 
     // Output: 314
@@ -74,7 +74,7 @@ fn main() {
     );
 }
 
-fn are_all_levels_increasing(report: &Vec<i32>) -> bool {
+fn are_all_levels_increasing(report: &[i32]) -> bool {
     for level in 1..report.len() {
         let current_level = report[level];
         let previous_level = report[level - 1];
@@ -84,10 +84,10 @@ fn are_all_levels_increasing(report: &Vec<i32>) -> bool {
         }
     }
 
-    return true;
+    true
 }
 
-fn are_all_levels_decreasing(report: &Vec<i32>) -> bool {
+fn are_all_levels_decreasing(report: &[i32]) -> bool {
     for level in 1..report.len() {
         let current_level = report[level];
         let previous_level = report[level - 1];
@@ -97,10 +97,10 @@ fn are_all_levels_decreasing(report: &Vec<i32>) -> bool {
         }
     }
 
-    return true;
+    true
 }
 
-fn do_reports_differ_by_one_to_three(report: &Vec<i32>) -> bool {
+fn do_reports_differ_by_one_to_three(report: &[i32]) -> bool {
     for level in 1..report.len() {
         let current_level = report[level];
         let previous_level = report[level - 1];
@@ -116,5 +116,5 @@ fn do_reports_differ_by_one_to_three(report: &Vec<i32>) -> bool {
         }
     }
 
-    return true;
+    true
 }
