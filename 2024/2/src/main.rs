@@ -68,6 +68,7 @@ fn main() {
 
     // Output: 314
     println!("Number of safe reports: {}", number_of_safe_reports);
+    // Output: 373
     println!(
         "Number of safe reports with problem dampner: {}",
         number_of_safe_reports_with_problem_dampner
